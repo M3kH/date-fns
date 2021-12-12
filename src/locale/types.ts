@@ -43,13 +43,26 @@ export type FormatDistanceLocale<Value> = {
   [token in FormatDistanceToken]: Value
 }
 
+export type FormatDistanceTokenFn = (
+  count: number,
+  options?: FormatDistanceOptions
+) => string
+
+export interface FormatDistanceOptions {
+  addSuffix?: boolean
+  comparison?: -1 | 0 | 1
+}
+
 export type FormatDistanceFn = (
   token: FormatDistanceToken,
   count: number,
-  options?: {
-    addSuffix?: boolean
-    comparison?: -1 | 0 | 1
-  }
+  options?: FormatDistanceOptions
+) => string
+
+export type FormatRelativeTokenFn = (
+  date: Date | number,
+  baseDate: Date | number,
+  options?: { weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6 }
 ) => string
 
 export type FormatRelativeToken =
@@ -240,3 +253,10 @@ export interface FormatLongFnOptions {
 }
 
 export type FormatLongFn = (options: FormatLongFnOptions) => string
+
+export interface DeclensionScheme {
+  one?: string
+  singularNominative: string
+  singularGenitive: string
+  pluralGenitive: string
+}
